@@ -9,14 +9,15 @@ runs:
         repository: AlexWilson-GIS/TestLoadingPythonScriptFromInlinePythonScript
         path: myScript
     - name: Add Action Path To GITHUB_PATH
+      # While this step makes it possible to run shell scripts, it does not make it possible to run python scripts
       run: echo "${{ github.action_path }}myScript" >> $GITHUB_PATH
       shell: sh
     - name: Run Shell Script From Inline Shell
       run: hello.sh
       shell: sh
     - name: Run Python Script From Inline Python
-      run: |
-        from sys import path
-        path.append("${{ github.action_path }}myScript")
-        import hello
+      # In order to run python scripts, the PATH must be modified by Python directly
+      env:
+        PYTHONPATH: ${{ github.action_path }}myScript
+      run: import hello
       shell: python
