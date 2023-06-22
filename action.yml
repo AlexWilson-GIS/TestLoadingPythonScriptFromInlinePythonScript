@@ -15,5 +15,7 @@ runs:
       run: hello.sh
       shell: sh
     - name: Run Python Script From Inline Python
-      run: import hello
+      run: |
+        from hello import myFunc
+        myFunc()
       shell: python
