@@ -9,14 +9,14 @@ runs:
         repository: AlexWilson-GIS/TestLoadingPythonScriptFromInlinePythonScript
         path: myScript
     - name: Add Action Path To GITHUB_PATH
-      # While this step makes it possible to run shell scripts, it does not make it possible to run python scripts
+      # While this step makes it possible to run shell scripts from another location, it does not make it possible to run python scripts
       run: echo "${{ github.action_path }}myScript" >> $GITHUB_PATH
       shell: sh
     - name: Run Shell Script From Inline Shell
       run: hello.sh
       shell: sh
     - name: Run Python Script From Inline Python
-      # In order to run python scripts, the PATH must be modified by Python directly
+      # In order to run python scripts, the PYTHONPATH must be set here, or sys.path must be modified in this inline script. To test this out, simply comment out the environment variable setting below and watch the job fail.
       env:
         PYTHONPATH: ${{ github.action_path }}myScript
       run: import hello
