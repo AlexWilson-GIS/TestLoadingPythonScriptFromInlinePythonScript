@@ -9,7 +9,10 @@ runs:
         repository: AlexWilson-GIS/TestLoadingPythonScriptFromInlinePythonScript
         path: myScript
     - name: Add Action Path To GITHUB_PATH
-      run: echo "${{ github.action_path }}myScript" >> $GITHUB_PATH && cat $GITHUB_PATH
+      run: echo "${{ github.action_path }}myScript" >> $GITHUB_PATH
+      shell: sh
+    - name: Read GITHUB_PATH
+      run: cat $GITHUB_PATH
       shell: sh
     - name: Run Python Script From Inline Python
       run: import hello
