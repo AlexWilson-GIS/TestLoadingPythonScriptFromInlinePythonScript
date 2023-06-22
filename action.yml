@@ -1,0 +1,17 @@
+name: Import Python Script To Inline Python
+description: Action To Run a Python Script From an Inline Python Script
+runs:
+  using: composite
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+      with:
+        repository: ${{github.action_repository}}
+        ref: ${{github.action_ref}}
+        path: myScript
+    - name: Add Action Path To GITHUB_PATH
+      run: echo "${{ github.action_path }}/myScript" >> $GITHUB_PATH
+      shell: sh
+    - name: Run Python Script From Inline Python
+      run: import hello
+      shell: python
