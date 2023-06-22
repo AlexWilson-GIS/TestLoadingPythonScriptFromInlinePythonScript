@@ -16,6 +16,7 @@ runs:
       shell: sh
     - name: Run Python Script From Inline Python
       run: |
-        from hello import myFunc
-        myFunc()
+        from os import chdir
+        chdir("${{ github.action_path }}myScript")
+        import hello
       shell: python
