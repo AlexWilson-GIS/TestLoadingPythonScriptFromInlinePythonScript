@@ -17,8 +17,10 @@ runs:
     - name: Run Python Script From Inline Python
       run: |
         from os import getcwd, chdir, listdir
+        import sys
         chdir("${{ github.action_path }}myScript")
         print(getcwd())
         print(listdir())
+        sys.path.append("${{ github.action_path }}myScript")
         import hello
       shell: python
